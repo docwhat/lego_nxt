@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "lego_nxt"
   gem.require_paths = ["lib"]
   gem.version       = LegoNxt::VERSION
+
+  gem.add_development_dependency 'rake'
 end
