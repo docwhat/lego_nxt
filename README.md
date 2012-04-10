@@ -20,6 +20,18 @@ Or install it yourself as:
 
 TODO: Write usage instructions here
 
+## Testing
+
+Most tests will work without owning a NXT brick
+
+To run all the tests, including the ones that require a NXT brick, then you need to
+plugin your NXT brick, power it on, and set the environment variable `HAS_NXT` to
+the value `true`.
+
+Example:
+
+    env HAS_NXT=true rspec spec
+
 ## Contributing
 
 1. Fork it
