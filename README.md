@@ -41,3 +41,12 @@ Example:
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Reference Material
+
+Useful if you're going to be hacking on the code:
+
+* [libusb](https://github.com/larskanis/libusb) - The [docs](http://rubydoc.info/gems/libusb/LIBUSB) in particular.
+* [LEGO's Support Files](http://mindstorms.lego.com/en-us/support/files/default.aspx#Advanced) - In particular:
+ * The Bluetooth Developer Kit -- Appendix 1: LEGO MINDSTORMS NXT Communication protocol
+ * Software Development Kit -- The PDF contains a description of the Executable File Specification
