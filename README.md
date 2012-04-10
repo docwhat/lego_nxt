@@ -1,6 +1,8 @@
 # LegoNxt
 
-TODO: Write a gem description
+[![Build Status](https://secure.travis-ci.org/JumpstartLab/lego_nxt.png?branch=master)](http://travis-ci.org/JumpstartLab/lego_nxt)
+
+An object oriented interface for talking to the LEGO NXT brick.
 
 ## Installation
 
