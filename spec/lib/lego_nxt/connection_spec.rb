@@ -3,38 +3,43 @@ require 'lego_nxt/connection'
 
 describe LegoNXT::Connection do
   subject { LegoNXT::Connection.new }
-  after(:each) { subject.close }
+  after(:each) { HAS_NXT and subject.close }
 
   describe "#new" do
     it "does something" do
-      requires_nxt
-      LegoNXT::Connection.new.close
+      needs_nxt do
+        LegoNXT::Connection.new.close
+      end
     end
 
     it "works twice" do
-      requires_nxt
-      LegoNXT::Connection.new.close
-      LegoNXT::Connection.new.close
+      needs_nxt do
+        LegoNXT::Connection.new.close
+        LegoNXT::Connection.new.close
+      end
     end
   end
 
   describe ".send" do
     it "should beep" do
-      requires_nxt
-      subject.send_bits [0x80, 0x03, 0xf4, 0x01, 0xf4, 0x01].pack('C*')
+      needs_nxt do
+        subject.send_bits [0x80, 0x03, 0xf4, 0x01, 0xf4, 0x01].pack('C*')
+      end
     end
   end
 
   describe ".close" do
     it "does something" do
-      requires_nxt
-      subject.close
+      needs_nxt do
+        subject.close
+      end
     end
 
     it "can be called twice with no ill effects" do
-      requires_nxt
-      subject.close
-      subject.close
+      needs_nxt do
+        subject.close
+        subject.close
+      end
     end
   end
 end

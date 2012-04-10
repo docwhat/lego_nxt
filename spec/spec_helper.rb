@@ -6,6 +6,10 @@ if not HAS_NXT
   puts "         the environment variable 'HAS_NXT' to 'true'."
 end
 
-def requires_nxt
-  pending("this test requires a NXT brick") unless HAS_NXT
+def needs_nxt &block
+  if HAS_NXT
+    yield
+  else
+    pending "This requires a NXT brick"
+  end
 end
