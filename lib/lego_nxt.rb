@@ -1,3 +1,5 @@
 require "lego_nxt/version"
 
-puts "coming soon..."
+# {LEGONXT} is a library for working with the LEGO NXT bricks.
+module LEGONXT
+end

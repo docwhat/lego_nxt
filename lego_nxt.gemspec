@@ -13,7 +13,20 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "lego_nxt"
   gem.require_paths = ["lib"]
-  gem.version       = LegoNxt::VERSION
+  gem.version       = LEGONXT::VERSION
 
-  gem.add_development_dependency 'rake'
+  gem.add_runtime_dependency 'libusb', '~> 0.1.3'
+
+  gem.add_development_dependency 'rake', '~> 0.9.2'
+
+  # Testing framework
+  gem.add_development_dependency 'rspec', '~> 2.9.0'
+
+  # Continous integration testing
+  gem.add_development_dependency 'guard', '~> 1.0.1'
+  gem.add_development_dependency 'guard-rspec', '~> 0.7.0'
+
+  # Documentation
+  gem.add_development_dependency 'yard'
+  gem.add_development_dependency 'redcarpet'
 end
