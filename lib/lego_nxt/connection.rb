@@ -36,11 +36,11 @@ module LegoNXT
     #
     # @see The LEGO MINDSTORMS NXT Communications Protocol (Appendex 1 of the Bluetooth Development Kit)
     #
-    # @param {String} bits This must be a binary string. Use `Array#pack` to generate the string.
-    # @return [nil]
-    def send_bits bits
-      @handle.bulk_transfer dataOut: bits, endpoint: USB_ENDPOINT_OUT
-      nil
+    # @param {String} bits This must be a binary string. Use `Array#pack('C*')` to generate the string.
+    # @return [Boolean] Returns true if all the data was sent and received by the NXT.
+    def transmit bits
+      bytes_sent = @handle.bulk_transfer dataOut: bits, endpoint: USB_ENDPOINT_OUT
+      bytes_sent == bits.length
     end
 
     # Closes the connection

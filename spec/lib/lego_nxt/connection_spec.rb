@@ -20,10 +20,16 @@ describe LegoNXT::Connection do
     end
   end
 
-  describe ".send" do
+  describe ".transmit" do
     it "should beep" do
       needs_nxt do
-        subject.send_bits [0x80, 0x03, 0xf4, 0x01, 0xf4, 0x01].pack('C*')
+        subject.transmit [0x80, 0x03, 0xf4, 0x01, 0xf4, 0x01].pack('C*')
+      end
+    end
+
+    it "return success" do
+      needs_nxt do
+        subject.transmit([0x80, 0x03, 0xf4, 0x01, 0xf4, 0x01].pack('C*')).should be_true
       end
     end
   end
