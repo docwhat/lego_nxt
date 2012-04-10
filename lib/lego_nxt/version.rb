@@ -1,4 +1,4 @@
-module LEGONXT
-  # The version of the LEGONXT code
+module LegoNXT
+  # The version of the LegoNXT code
   VERSION = "0.0.1"
 end

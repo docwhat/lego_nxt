@@ -1,20 +1,20 @@
 require 'spec_helper'
 require 'lego_nxt/connection'
 
-describe LEGONXT::Connection do
-  subject { LEGONXT::Connection.new }
+describe LegoNXT::Connection do
+  subject { LegoNXT::Connection.new }
   after(:each) { subject.close }
 
   describe "#new" do
     it "does something" do
       requires_nxt
-      LEGONXT::Connection.new.close
+      LegoNXT::Connection.new.close
     end
 
     it "works twice" do
       requires_nxt
-      LEGONXT::Connection.new.close
-      LEGONXT::Connection.new.close
+      LegoNXT::Connection.new.close
+      LegoNXT::Connection.new.close
     end
   end
 

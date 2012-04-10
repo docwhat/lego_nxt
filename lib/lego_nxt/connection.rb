@@ -1,7 +1,7 @@
 require 'libusb'
 require 'lego_nxt/errors'
 
-module LEGONXT
+module LegoNXT
 
   # Low-level connection object for communicating with the NXT brick.
   #
@@ -64,7 +64,7 @@ module LEGONXT
       @mutex.synchronize do
         context = LIBUSB::Context.new
         device = context.devices(:idVendor => LEGO_VENDOR_ID, :idProduct => NXT_PRODUCT_ID).first
-        raise LEGONXT::NoDeviceError("Please make sure the device is plugged in and powered on") if device.nil?
+        raise NoDeviceError.new("Please make sure the device is plugged in and powered on") if device.nil?
         @handle = device.open
         @handle.claim_interface(0)
       end

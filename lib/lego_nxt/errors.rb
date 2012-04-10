@@ -1,10 +1,10 @@
-module LEGONXT
-  # All LEGONXT errors are subclassed from this
+module LegoNXT
+  # All LegoNXT errors are subclassed from this
   # error class.
-  class LEGONXTError < StandardError
+  class LegoNXTError < StandardError
   end
 
   # No NXT bricks were found.
-  class NoDeviceError < LEGONXTError
+  class NoDeviceError < LegoNXTError
   end
 end
