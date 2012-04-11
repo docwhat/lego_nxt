@@ -22,6 +22,13 @@ Or install it yourself as:
 
 TODO: Write usage instructions here
 
+## Documentation
+
+The documentation is written for yard. Install the `yard` gem and you can
+use the `yri` command to browse the documentation.
+
+Alternatively, you can read the [online documentation](http://rubydoc.info/github/docwhat/lego_nxt/master/frames).
+
 ## Testing
 
 Most tests will work without owning a NXT brick
