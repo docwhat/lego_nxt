@@ -8,6 +8,8 @@ module LegoNXT
   # It's interface is very simple. Higher levels of abstractions provide
   # access to opcodes, etc.
   #
+  # WARNING: This class is *not* threadsafe. To use it in a threaded environment
+  # you need to synchonize access to it.
   class Connection
     # The USB idVendor code
     LEGO_VENDOR_ID = 0x0694
