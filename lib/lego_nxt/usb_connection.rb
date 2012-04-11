@@ -3,14 +3,23 @@ require 'lego_nxt/errors'
 
 module LegoNXT
 
-  # Low-level connection object for communicating with the NXT brick.
+  # Low-level connection object for communicating with the NXT brick
+  # via USB.
   #
-  # It's interface is very simple. Higher levels of abstractions provide
-  # access to opcodes, etc.
+  # It's interface is very simple and mainly deals with bytes `pack`ed
+  # into {String}s.
+  #
+  # Example of packing:
+  #
+  #     [ 0x80, 0x03].pack('C*')
+  #
+  # Example of unpacking
+  #
+  #     bytestring.unpack('C*')
   #
   # WARNING: This class is *not* threadsafe. To use it in a threaded environment
   # you need to synchonize access to it.
-  class Connection
+  class UsbConnection
     # The USB idVendor code
     LEGO_VENDOR_ID = 0x0694
     # The USB idProduct code

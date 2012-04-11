@@ -1,21 +1,21 @@
 require 'spec_helper'
-require 'lego_nxt/connection'
+require 'lego_nxt/usb_connection'
 
-describe LegoNXT::Connection do
-  subject { LegoNXT::Connection.new }
+describe LegoNXT::UsbConnection do
+  subject { LegoNXT::UsbConnection.new }
   after(:each) { HAS_NXT and subject.close }
 
   describe "#new" do
     it "does something" do
       needs_nxt do
-        LegoNXT::Connection.new.close
+        LegoNXT::UsbConnection.new.close
       end
     end
 
     it "works twice" do
       needs_nxt do
-        LegoNXT::Connection.new.close
-        LegoNXT::Connection.new.close
+        LegoNXT::UsbConnection.new.close
+        LegoNXT::UsbConnection.new.close
       end
     end
   end
@@ -59,7 +59,7 @@ describe LegoNXT::Connection do
 
     context "with an unsuccessful transmit" do
       it "should raise TransmitError" do
-        LegoNXT::Connection.any_instance.stub(:open)
+        LegoNXT::UsbConnection.any_instance.stub(:open)
         subject.stub(:transmit) { false }
         expect { subject.transceive(double) }.to raise_error(LegoNXT::TransmitError)
       end

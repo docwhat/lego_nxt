@@ -26,9 +26,28 @@ One easy way to do this is with [homebrew](http://mxcl.github.com/homebrew/):
 
     brew install libusb
 
+To get the bluetooth working, it's pretty easy:
+
+1. Pair your NXT to your computer.
+1. In "Bluetooth Preference" in "System Preferences":
+  1. Click on "NXT" (This may be different if you renamed your NXT brick).
+  1. Click on the gear below the list box.
+  1. Select "Edit Serial Ports..."
+  1. Press the "+" button.  It should fill in as:
+    * Name: NXT-DevB
+    * Protocol: RS-232
+    * Service: Dev B
+  1. Click "Apply"
+
+You should now have two new devices in your `/dev` directory:
+  * `/dev/tty.NXT-DevB` -- This is what we'll use to talk to the NXT brick.
+  * `/dev/cu.NXT-DevB`
+
 ### Linux
 
 You need a copy of [libusb](http://www.libusb.org/)'s development libraries.'
+
+TODO: Add instructions for setting up bluetooth.
 
 ### Windows
 
@@ -45,6 +64,9 @@ environment (the CD that came with Mindstorms) that you should be ready to go.
 If not, read the [libusb](https://github.com/larskanis/libusb) gem's docs.
 They suggest something called
 [Zadig](http://sourceforge.net/apps/mediawiki/libwdi/index.php?title=Main_Page).
+
+TODO: Add instructions for setting up bluetooth. Until then, see [this helpful
+document](http://www.eng.buffalo.edu/~colinlea/Bluetooth_With_NXT.pdf)
 
 ## Usage
 
