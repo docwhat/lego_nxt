@@ -2,3 +2,5 @@ rvm:
   - 1.9.2
   - 1.9.3
 script: "bundle exec rake spec"
+before_script:
+  - sudo apt-get install libusb-1.0-0-dev
