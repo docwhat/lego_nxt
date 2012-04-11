@@ -7,4 +7,8 @@ module LegoNXT
   # No NXT bricks were found.
   class NoDeviceError < LegoNXTError
   end
+
+  # The transmit failed for some reason
+  class TransmitError < LegoNXTError
+  end
 end

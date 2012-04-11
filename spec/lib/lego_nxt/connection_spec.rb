@@ -34,6 +34,37 @@ describe LegoNXT::Connection do
     end
   end
 
+  describe ".transceive" do
+    context "with a successful transmit" do
+      let (:retval) { subject.transceive([0x01, 0x88].pack('C*')).unpack('C*') }
+      it "should return 7 bytes" do
+        needs_nxt do
+          retval.should have(7).items
+        end
+      end
+
+      it "should return the response bits" do
+        needs_nxt do
+          retval[0].should == 0x02
+          retval[1].should == 0x88
+        end
+      end
+
+      it "should be successful" do
+        needs_nxt do
+          retval[2].should == 0x0
+        end
+      end
+    end
+
+    context "with an unsuccessful transmit" do
+      it "should raise TransmitError" do
+        subject.stub(:transmit) { false }
+        expect { subject.transceive(double) }.to raise_error(LegoNXT::TransmitError)
+      end
+    end
+  end
+
   describe ".close" do
     it "does something" do
       needs_nxt do

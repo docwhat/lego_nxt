@@ -31,7 +31,7 @@ module LegoNXT
     # Example:
     #
     #     # Causes the brick to beep
-    #     conn.send_bits [0x80, 0x03, 0xf4, 0x01, 0xf4, 0x01].pack('C*')'
+    #     conn.transmit [0x80, 0x03, 0xf4, 0x01, 0xf4, 0x01].pack('C*')'
     #
     # @see The LEGO MINDSTORMS NXT Communications Protocol (Appendex 1 of the Bluetooth Development Kit)
     #
@@ -40,6 +40,24 @@ module LegoNXT
     def transmit bits
       bytes_sent = @handle.bulk_transfer dataOut: bits, endpoint: USB_ENDPOINT_OUT
       bytes_sent == bits.length
+    end
+
+    # Sends a packet string of bits and then receives a result.
+    #
+    # Example:
+    #
+    #     # Causes the brick to beep
+    #     conn.transceive [0x80, 0x03, 0xf4, 0x01, 0xf4, 0x01].pack('C*')'
+    #
+    # @see The LEGO MINDSTORMS NXT Communications Protocol (Appendex 1 of the Bluetooth Development Kit)
+    #
+    # @param {String} bits This must be a binary string. Use `Array#pack('C*')` to generate the string.
+    # @raise {LegoNXT::TransmitError} Raised if the {#transmit} fails.
+    # @return [String] A packed string of the response bits. Use `String#unpack('C*')`.
+    def transceive bits
+      raise TransmitError unless transmit bits
+      bytes_received = @handle.bulk_transfer dataIn: 64, endpoint: USB_ENDPOINT_IN
+      return bytes_received
     end
 
     # Closes the connection
