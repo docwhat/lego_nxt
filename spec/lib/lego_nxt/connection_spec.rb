@@ -59,6 +59,7 @@ describe LegoNXT::Connection do
 
     context "with an unsuccessful transmit" do
       it "should raise TransmitError" do
+        LegoNXT::Connection.any_instance.stub(:open)
         subject.stub(:transmit) { false }
         expect { subject.transceive(double) }.to raise_error(LegoNXT::TransmitError)
       end
