@@ -18,6 +18,34 @@ Or install it yourself as:
 
     $ gem install lego_nxt
 
+### Mac OS X
+
+You'll need a copy of [libusb](http://www.libusb.org/) and its development library installed.
+
+One easy way to do this is with [homebrew](http://mxcl.github.com/homebrew/):
+
+    brew install libusb
+
+### Linux
+
+You need a copy of [libusb](http://www.libusb.org/)'s development libraries.'
+
+### Windows
+
+WARNING: I only use Windows at work. I don't own a personal copy and therefore
+don't use it.  However, my goal is to make this work on Windows with the help
+of people like you.  So find me on [http://freenode.net/] IRC as `docwhat` or
+via [docwhat.org](http://docwhat.org) if you have problems. Or file an issue!
+
+The [libusb](https://github.com/larskanis/libusb) gem has support for windows
+built in; it ships with a `libusb.dll` ready to use.
+
+You may need a USB driver. I'm hopeful that if you installed the lego NXT-G
+environment (the CD that came with Mindstorms) that you should be ready to go.
+If not, read the [libusb](https://github.com/larskanis/libusb) gem's docs.
+They suggest something called
+[Zadig](http://sourceforge.net/apps/mediawiki/libwdi/index.php?title=Main_Page).
+
 ## Usage
 
 TODO: Write usage instructions here
