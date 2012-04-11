@@ -23,7 +23,6 @@ module LegoNXT
     # Creates a connection to the NXT brick.
     #
     def initialize
-      @mutex = Mutex.new
       open
     end
 
@@ -61,13 +60,11 @@ module LegoNXT
     #
     # @return [nil]
     def open
-      @mutex.synchronize do
-        context = LIBUSB::Context.new
-        device = context.devices(:idVendor => LEGO_VENDOR_ID, :idProduct => NXT_PRODUCT_ID).first
-        raise NoDeviceError.new("Please make sure the device is plugged in and powered on") if device.nil?
-        @handle = device.open
-        @handle.claim_interface(0)
-      end
+      context = LIBUSB::Context.new
+      device = context.devices(:idVendor => LEGO_VENDOR_ID, :idProduct => NXT_PRODUCT_ID).first
+      raise NoDeviceError.new("Please make sure the device is plugged in and powered on") if device.nil?
+      @handle = device.open
+      @handle.claim_interface(0)
     end
   end
 end
