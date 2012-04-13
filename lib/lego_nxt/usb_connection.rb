@@ -7,7 +7,7 @@ module LegoNXT
   # via USB.
   #
   # It's interface is very simple and mainly deals with bytes `pack`ed
-  # into {String}s.
+  # into `String`s.
   #
   # Example of packing:
   #

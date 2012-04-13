@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'lego_nxt/usb_connection'
+require 'lego_nxt/constants'
 
 describe LegoNXT::UsbConnection do
   subject { LegoNXT::UsbConnection.new }
@@ -23,20 +24,34 @@ describe LegoNXT::UsbConnection do
   describe ".transmit" do
     it "should beep" do
       needs_nxt do
-        subject.transmit [0x80, 0x03, 0xf4, 0x01, 0xf4, 0x01].pack('C*')
+        ops = [LegoNXT::DirectOps::NO_RESPONSE,
+               LegoNXT::DirectOps::PLAYTONE,
+               500,
+               500].pack('CCvv')
+        subject.transmit ops
+        sleep 0.5
       end
     end
 
     it "return success" do
       needs_nxt do
-        subject.transmit([0x80, 0x03, 0xf4, 0x01, 0xf4, 0x01].pack('C*')).should be_true
+        ops = [LegoNXT::DirectOps::NO_RESPONSE,
+               LegoNXT::DirectOps::PLAYTONE,
+               700,
+               500].pack('CCvv')
+        subject.transmit(ops).should be_true
+        sleep 0.5
       end
     end
   end
 
   describe ".transceive" do
     context "with a successful transmit" do
-      let (:retval) { subject.transceive([0x01, 0x88].pack('C*')).unpack('C*') }
+      let (:ops) do
+        [LegoNXT::SystemOps::REQUIRE_RESPONSE,
+         LegoNXT::SystemOps::GET_FIRMWARE_VERSION].pack 'CC'
+      end
+      let (:retval) { subject.transceive(ops).unpack('C*') }
       it "should return 7 bytes" do
         needs_nxt do
           retval.should have(7).items
