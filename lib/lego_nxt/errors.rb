@@ -11,4 +11,8 @@ module LegoNXT
   # The transmit failed for some reason
   class TransmitError < LegoNXTError
   end
+
+  # A bad opcode was attempted to be sent.
+  class BadOpCodeError < LegoNXTError
+  end
 end

@@ -48,9 +48,21 @@ module LegoNXT
     #
     # @param {String} bits This must be a binary string. Use `Array#pack('C*')` to generate the string.
     # @return [Boolean] Returns true if all the data was sent and received by the NXT.
-    def transmit bits
+    def transmit! bits
       bytes_sent = @handle.bulk_transfer dataOut: bits, endpoint: USB_ENDPOINT_OUT
       bytes_sent == bits.length
+    end
+
+    # {include:#transmit!}
+    #
+    # Unlike {#transmit!}, this command will raise an error for some badly formed op codes.
+    #
+    # @raise [BadOpCodeError] Raised when the first bit is not a `NO_RESPONSE` op code.
+    # @param {String} bits This must be a binary string. Use `Array#pack('C*')` to generate the string.
+    # @return [Boolean] Returns true if all the data was sent and received by the NXT.
+    def transmit bits
+      raise BadOpCodeError unless [DirectOps::NO_RESPONSE, SystemOps::NO_RESPONSE].pack('CC').include? bits[0]
+      transmit! bits
     end
 
     # Sends a packet string of bits and then receives a result.
@@ -66,7 +78,8 @@ module LegoNXT
     # @raise {LegoNXT::TransmitError} Raised if the {#transmit} fails.
     # @return [String] A packed string of the response bits. Use `String#unpack('C*')`.
     def transceive bits
-      raise TransmitError unless transmit bits
+      raise BadOpCodeError unless [DirectOps::REQUIRE_RESPONSE, SystemOps::REQUIRE_RESPONSE].pack('CC').include? bits[0]
+      raise TransmitError unless transmit! bits
       bytes_received = @handle.bulk_transfer dataIn: 64, endpoint: USB_ENDPOINT_IN
       return bytes_received
     end

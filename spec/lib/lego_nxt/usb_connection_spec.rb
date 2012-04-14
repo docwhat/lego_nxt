@@ -43,6 +43,20 @@ describe LegoNXT::UsbConnection do
         sleep 0.5
       end
     end
+
+    it "doesn't accept a REQUIRE_RESPONSE system command" do
+      needs_nxt do
+        ops = [LegoNXT::SystemOps::REQUIRE_RESPONSE].pack('C')
+        expect { subject.transmit(ops) }.to raise_error(LegoNXT::BadOpCodeError)
+      end
+    end
+
+    it "doesn't accept a REQUIRE_RESPONSE direct command" do
+      needs_nxt do
+        ops = [LegoNXT::DirectOps::REQUIRE_RESPONSE].pack('C')
+        expect { subject.transmit(ops) }.to raise_error(LegoNXT::BadOpCodeError)
+      end
+    end
   end
 
   describe ".transceive" do
@@ -72,11 +86,26 @@ describe LegoNXT::UsbConnection do
       end
     end
 
+    it "doesn't accept a NO_RESPONSE system command" do
+      needs_nxt do
+        ops = [LegoNXT::SystemOps::NO_RESPONSE].pack('C')
+        expect { subject.transceive(ops) }.to raise_error(LegoNXT::BadOpCodeError)
+      end
+    end
+
+    it "doesn't accept a NO_RESPONSE direct command" do
+      needs_nxt do
+        ops = [LegoNXT::DirectOps::NO_RESPONSE].pack('C')
+        expect { subject.transceive(ops) }.to raise_error(LegoNXT::BadOpCodeError)
+      end
+    end
+
     context "with an unsuccessful transmit" do
       it "should raise TransmitError" do
         LegoNXT::UsbConnection.any_instance.stub(:open)
-        subject.stub(:transmit) { false }
-        expect { subject.transceive(double) }.to raise_error(LegoNXT::TransmitError)
+        subject.stub(:transmit!) { false }
+        ops = [LegoNXT::DirectOps::REQUIRE_RESPONSE].pack('C')
+        expect { subject.transceive(ops) }.to raise_error(LegoNXT::TransmitError)
       end
     end
   end
