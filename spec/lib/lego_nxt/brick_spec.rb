@@ -51,6 +51,32 @@ describe LegoNXT::Brick  do
     end
   end
 
+  describe ".normalize_motor_port" do
+    [:a, :b, :c].each do |port|
+      context "with port #{port.inspect}" do
+        it "accepts port #{port.inspect}" do
+          subject.normalize_motor_port port
+        end
+        it "it returns a Type" do
+          subject.normalize_motor_port(port).should be_a_kind_of(LegoNXT::Type)
+        end
+      end
+    end
+
+    it "raises an error if it isn't a port symbol" do
+      expect { subject.normalize_motor_port(:d) }.to raise_error(ArgumentError)
+    end
+  end
+
+  describe ".normalize_boolean" do
+    it "returns byte(1) for true" do
+      subject.normalize_boolean(true).should == byte(1)
+    end
+    it "returns byte(0) for false" do
+      subject.normalize_boolean(false).should == byte(0)
+    end
+  end
+
   describe ".play_tone" do
     it "doesn't accept frequencies under 200" do
       expect { subject.play_tone 199, 400 }.to raise_error(ArgumentError)
@@ -83,6 +109,24 @@ describe LegoNXT::Brick  do
     it "returns something" do
       connection.stub(:transceive) { bytestring 0x02, LegoNXT::DirectOps::GETBATTERYLEVEL, 0x00, uword(8184) }
       subject.battery_level.should == 8184
+    end
+  end
+
+  describe ".reset_motor_position" do
+    [:a, :b, :c].each do |port|
+      [true, false].each do |relative|
+        it "accepts port #{port.inspect}, relative #{relative.inspect}" do
+          subject.reset_motor_position port, relative
+        end
+        it "calls normalize_motor_port" do
+          subject.should_receive(:normalize_motor_port).with(port) { byte(0) }
+          subject.reset_motor_position port, relative
+        end
+        it "calls normalize_boolean" do
+          subject.should_receive(:normalize_boolean).with(relative) { byte(0) }
+          subject.reset_motor_position port, relative
+        end
+      end
     end
   end
 
