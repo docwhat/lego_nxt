@@ -3,20 +3,20 @@ require 'lego_nxt/usb_connection'
 require 'lego_nxt/constants'
 
 describe LegoNXT::UsbConnection do
-  subject { LegoNXT::UsbConnection.new }
+  subject { described_class.new }
   after(:each) { HAS_NXT and subject.close }
 
   describe "#new" do
     it "does something" do
       needs_nxt do
-        LegoNXT::UsbConnection.new.close
+        described_class.new.close
       end
     end
 
     it "works twice" do
       needs_nxt do
-        LegoNXT::UsbConnection.new.close
-        LegoNXT::UsbConnection.new.close
+        described_class.new.close
+        described_class.new.close
       end
     end
   end
@@ -24,10 +24,10 @@ describe LegoNXT::UsbConnection do
   describe ".transmit" do
     it "should beep" do
       needs_nxt do
-        ops = [LegoNXT::DirectOps::NO_RESPONSE,
+        ops = bytestring(LegoNXT::DirectOps::NO_RESPONSE,
                LegoNXT::DirectOps::PLAYTONE,
-               500,
-               500].pack('CCvv')
+               uword(500),
+               uword(500))
         subject.transmit ops
         sleep 0.5
       end
@@ -35,10 +35,10 @@ describe LegoNXT::UsbConnection do
 
     it "return success" do
       needs_nxt do
-        ops = [LegoNXT::DirectOps::NO_RESPONSE,
-               LegoNXT::DirectOps::PLAYTONE,
-               700,
-               500].pack('CCvv')
+        ops = bytestring(LegoNXT::DirectOps::NO_RESPONSE,
+                         LegoNXT::DirectOps::PLAYTONE,
+                         uword(700),
+                         uword(500))
         subject.transmit(ops).should be_true
         sleep 0.5
       end
@@ -46,14 +46,14 @@ describe LegoNXT::UsbConnection do
 
     it "doesn't accept a REQUIRE_RESPONSE system command" do
       needs_nxt do
-        ops = [LegoNXT::SystemOps::REQUIRE_RESPONSE].pack('C')
+        ops = bytestring LegoNXT::SystemOps::REQUIRE_RESPONSE
         expect { subject.transmit(ops) }.to raise_error(LegoNXT::BadOpCodeError)
       end
     end
 
     it "doesn't accept a REQUIRE_RESPONSE direct command" do
       needs_nxt do
-        ops = [LegoNXT::DirectOps::REQUIRE_RESPONSE].pack('C')
+        ops = bytestring LegoNXT::DirectOps::REQUIRE_RESPONSE
         expect { subject.transmit(ops) }.to raise_error(LegoNXT::BadOpCodeError)
       end
     end
@@ -62,8 +62,8 @@ describe LegoNXT::UsbConnection do
   describe ".transceive" do
     context "with a successful transmit" do
       let (:ops) do
-        [LegoNXT::SystemOps::REQUIRE_RESPONSE,
-         LegoNXT::SystemOps::GET_FIRMWARE_VERSION].pack 'CC'
+        bytestring( LegoNXT::SystemOps::REQUIRE_RESPONSE,
+                    LegoNXT::SystemOps::GET_FIRMWARE_VERSION )
       end
       let (:retval) { subject.transceive(ops).unpack('C*') }
       it "should return 7 bytes" do
@@ -88,23 +88,23 @@ describe LegoNXT::UsbConnection do
 
     it "doesn't accept a NO_RESPONSE system command" do
       needs_nxt do
-        ops = [LegoNXT::SystemOps::NO_RESPONSE].pack('C')
+        ops = bytestring LegoNXT::SystemOps::NO_RESPONSE
         expect { subject.transceive(ops) }.to raise_error(LegoNXT::BadOpCodeError)
       end
     end
 
     it "doesn't accept a NO_RESPONSE direct command" do
       needs_nxt do
-        ops = [LegoNXT::DirectOps::NO_RESPONSE].pack('C')
+        ops = bytestring LegoNXT::DirectOps::NO_RESPONSE
         expect { subject.transceive(ops) }.to raise_error(LegoNXT::BadOpCodeError)
       end
     end
 
     context "with an unsuccessful transmit" do
       it "should raise TransmitError" do
-        LegoNXT::UsbConnection.any_instance.stub(:open)
+        described_class.any_instance.stub(:open)
         subject.stub(:transmit!) { false }
-        ops = [LegoNXT::DirectOps::REQUIRE_RESPONSE].pack('C')
+        ops = bytestring LegoNXT::DirectOps::REQUIRE_RESPONSE
         expect { subject.transceive(ops) }.to raise_error(LegoNXT::TransmitError)
       end
     end
