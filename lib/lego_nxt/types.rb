@@ -27,6 +27,14 @@ module LegoNXT
       @integer
     end
 
+    # Returns true if the classes and values are the same.
+    #
+    # @param [Type] The object to compare to.
+    # @return [Boolean]
+    def == other
+      self.class == other.class && self.to_i == other.to_i
+    end
+
     # The character(s) used to pack/unpack the integer.
     #
     # See the documentation for `Array::pack` for more info.

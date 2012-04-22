@@ -38,6 +38,21 @@ shared_examples_for "a type" do |minimum, maximum, pack_char|
       subject.to_i.should == random_int
     end
   end
+
+  describe ".==" do
+    it "should return true if both are the same integer" do
+      described_class.new(random_int).should == described_class.new(random_int)
+    end
+
+    it "shouldn't return true if the classes are different" do
+      other_class = if described_class == LegoNXT::SignedByte
+                      LegoNXT::UnsignedByte
+                    else
+                      LegoNXT::SignedByte
+                    end
+      described_class.new(12).should_not == other_class.new(12)
+    end
+  end
 end
 
 shared_examples_for "an alias" do |method|
