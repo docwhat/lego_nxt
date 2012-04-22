@@ -141,6 +141,7 @@ end
 # Helper method for creating an {LegoNXT::UnsignedByte}
 #
 # @param [Fixnum] i The integer value for the byte.
+# @return [LegoNXT::UnsignedByte]
 def byte i
   ubyte i
 end
@@ -148,6 +149,7 @@ end
 # Helper method for creating an {LegoNXT::UnsignedByte}
 #
 # @param [Fixnum] i The integer value for the byte.
+# @return [LegoNXT::UnsignedByte]
 def ubyte i
   LegoNXT::UnsignedByte.new i
 end
@@ -155,6 +157,7 @@ end
 # Helper method for creating an {LegoNXT::SignedByte}
 #
 # @param [Fixnum] i The integer value for the byte.
+# @return [LegoNXT::SignedByte]
 def sbyte i
   LegoNXT::SignedByte.new i
 end
@@ -162,6 +165,7 @@ end
 # Helper method for creating an {LegoNXT::UnsignedWord}
 #
 # @param [Fixnum] i The integer value for the word.
+# @return [LegoNXT::UnsignedWord]
 def word i
   uword i
 end
@@ -169,6 +173,7 @@ end
 # Helper method for creating an {LegoNXT::UnsignedWord}
 #
 # @param [Fixnum] i The integer value for the word.
+# @return [LegoNXT::UnsignedWord]
 def uword i
   LegoNXT::UnsignedWord.new i
 end
@@ -176,6 +181,7 @@ end
 # Helper method for creating an {LegoNXT::SignedWord}
 #
 # @param [Fixnum] i The integer value for the word.
+# @return [LegoNXT::SignedWord]
 def sword i
   LegoNXT::SignedWord.new i
 end
@@ -183,6 +189,7 @@ end
 # Helper method for creating an {LegoNXT::UnsignedLong}
 #
 # @param [Fixnum] i The integer value for the long.
+# @return [LegoNXT::UnsignedLong]
 def long i
   ulong i
 end
@@ -190,6 +197,7 @@ end
 # Helper method for creating an {LegoNXT::UnsignedLong}
 #
 # @param [Fixnum] i The integer value for the long.
+# @return [LegoNXT::UnsignedLong]
 def ulong i
   LegoNXT::UnsignedLong.new i
 end
@@ -197,6 +205,7 @@ end
 # Helper method for creating an {LegoNXT::SignedLong}
 #
 # @param [Fixnum] i The integer value for the long.
+# @return [LegoNXT::SignedLong]
 def slong i
   LegoNXT::SignedLong.new i
 end
