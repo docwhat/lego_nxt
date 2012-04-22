@@ -24,8 +24,10 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec', '~> 2.9.0'
 
   # Continous integration testing
-  gem.add_development_dependency 'guard', '~> 1.0.1'
-  gem.add_development_dependency 'guard-rspec', '~> 0.7.0'
+  gem.add_development_dependency 'guard'
+  gem.add_development_dependency 'guard-rspec'
+  gem.add_development_dependency 'growl'
+  gem.add_development_dependency 'ruby-fsevent'
 
   # Documentation
   gem.add_development_dependency 'yard'
