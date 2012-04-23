@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+require 'pathname'
+
+EXAMPLE_DIR = Pathname.new(__FILE__).realpath.dirname
+$: << (EXAMPLE_DIR.dirname + "lib").to_s
+
+require 'lego_nxt'
+
+def help
+  puts <<-EOF
+  Usage: $0 <example> [<example>...]
+         $0 [-l|--list]
+
+  A very simple example runner.  Just drop your example in the examples directory and go!
+
+  -l --list    List examples.
+  EOF
+  exit 0
+end
+
+def list
+  puts "Examples:"
+  EXAMPLE_DIR.children.each do |fname|
+    next unless fname.to_s.end_with?('.rb')
+    next unless fname.file?
+    puts " * #{fname.basename '.rb'}"
+  end
+end
+
+help if ARGV.length == 0
+list if ARGV.include?('-l') or ARGV.include?("--list")
+
+begin
+  ARGV.each do |example|
+    path = EXAMPLE_DIR + "#{example}.rb"
+    require path if path.exist?
+  end
+ensure
+  LegoNXT::disconnect
+end
