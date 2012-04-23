@@ -14,3 +14,10 @@ def LegoNXT::connect
   @found_connection ||= LegoNXT::UsbConnection.new
   LegoNXT::Brick.new @found_connection
 end
+
+def LegoNXT::disconnect
+  unless @found_connection.nil?
+    @found_connection.close
+    @found_connection = nil
+  end
+end

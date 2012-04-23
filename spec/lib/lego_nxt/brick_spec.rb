@@ -130,4 +130,40 @@ describe LegoNXT::Brick  do
     end
   end
 
+  describe ".run_motor" do
+    it "should default to power 100" do
+      subject.should_receive(:transmit).with(
+        anything, anything,
+        anything, sbyte(100),
+        anything, anything, anything, anything,
+        anything,
+      )
+      subject.run_motor :a
+    end
+
+    it "should accept power" do
+      subject.should_receive(:transmit).with(
+        anything, anything,
+        anything, sbyte(42),
+        anything, anything, anything, anything,
+        anything,
+      )
+      subject.run_motor :a, 42
+    end
+
+    it "calls normalize_motor_port" do
+      port = double(name: 'port')
+      subject.should_receive(:run_motor).with(port) { byte(0) }
+      subject.run_motor port
+    end
+  end
+
+  describe ".stop_motor" do
+    it "should call run_motor" do
+      port = double
+      subject.should_receive(:run_motor).with(port, 0) { true }
+      subject.stop_motor port
+    end
+  end
+
 end

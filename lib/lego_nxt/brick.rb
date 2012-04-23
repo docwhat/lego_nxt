@@ -54,6 +54,34 @@ module LegoNXT
       )
     end
 
+    # Runs the motor
+    #
+    # @param [Symbol] port The port the motor is attached to. Should be `:a`, `:b`, `:c`, `:all`
+    # @param [Integer] power A number between -100 through 100 inclusive. Defaults to 100.
+    # @return [nil]
+    def run_motor port, power=100
+      raise ArgumentError.new("Power must be -100 through 100") if power < -100 || power > 100
+      transmit(
+        LegoNXT::DirectOps::NO_RESPONSE,
+        LegoNXT::DirectOps::SETOUTPUTSTATE,
+        normalize_motor_port(port, accept_all=true),
+        sbyte(power), # power set point
+        byte(1),      # mode
+        byte(0),      # regulation mode
+        sbyte(0),     # turn ratio
+        byte(0x20),   # run state
+        long(0),      # tacho limit
+      )
+    end
+
+    # Stops the motor
+    #
+    # @param [Symbol] port The port the motor is attached to. Should be `:a`, `:b`, `:c`, `:all`
+    # @return [nil]
+    def stop_motor port
+      run_motor port, 0
+    end
+
     # A wrapper around the transmit function for the connection.
     #
     # @param [LegoNXT::Type] bits A list of bytes.
@@ -82,12 +110,16 @@ module LegoNXT
 
     # Converts a port symbol into the appropriate byte().
     #
-    # @param [Symbol] port It should be `:a`, `:b`, or `:c` (which correspond to the markings on the brick)
+    # @param [Symbol] port It should be `:a`, `:b`, `:c`, or `:all` (which correspond to the markings on the brick)
+    # @param [Boolean] accept_all If true, then `:all` will be allowed, otherwise it's an error.
     # @return [UnsignedByte] The corresponding byte for the port.
-    def normalize_motor_port port
+    def normalize_motor_port port, accept_all=false
       @portmap ||= { a: byte(0),
                      b: byte(1),
-                     c: byte(2) }
+                     c: byte(2),
+                     all: byte(0xff),
+      }
+      raise ArgumentError.new("You cannot specify :all for this port") if port == :all and !accept_all
       raise ArgumentError.new("Motor ports must be #{@portmap.keys.inspect}: got #{port.inspect}") unless @portmap.include? port
       @portmap[port]
     end
