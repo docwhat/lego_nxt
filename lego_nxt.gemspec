@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = "~> 1.9.2"
 
   gem.add_runtime_dependency 'libusb', '~> 0.1.3'
+  gem.add_runtime_dependency 'highline', '~> 1.6.2'
 
   gem.add_development_dependency 'rake', '~> 0.9.2'
 
