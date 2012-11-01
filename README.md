@@ -100,6 +100,6 @@ Useful if you're going to be hacking on the code:
 
 * [libusb](https://github.com/larskanis/libusb) - The [docs](http://rubydoc.info/gems/libusb/LIBUSB) in particular.
 * [LEGO's Support Files](http://mindstorms.lego.com/en-us/support/files/default.aspx#Advanced) - In particular:
-* The Bluetooth Developer Kit -- Appendix 1: LEGO MINDSTORMS NXT Communication protocol
-* Software Development Kit -- The PDF contains a description of the Executable File Specification
+ * The Bluetooth Developer Kit -- Appendix 1: LEGO MINDSTORMS NXT Communication protocol
+ * Software Development Kit -- The PDF contains a description of the Executable File Specification
 * [Related troubleshooting](http://www.mindstorms.rwth-aachen.de/documents/downloads/doc/troubleshooting.html)
