@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module LegoNXT
   # A superclass for all the types.
   #

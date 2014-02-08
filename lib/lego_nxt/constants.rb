@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require "lego_nxt/types"
 
 module LegoNXT

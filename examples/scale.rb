@@ -1,3 +1,4 @@
+# encoding: utf-8
 # Plays a quick scale.
 
 brick = LegoNXT::connect

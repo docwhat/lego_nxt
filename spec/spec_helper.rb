@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 HAS_NXT = ENV['HAS_NXT'] == 'true'
 
 if not HAS_NXT

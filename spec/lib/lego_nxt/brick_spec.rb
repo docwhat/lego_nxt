@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require "spec_helper"
 require "lego_nxt/brick"
 require 'lego_nxt/constants'

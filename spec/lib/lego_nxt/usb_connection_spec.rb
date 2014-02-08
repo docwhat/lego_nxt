@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'spec_helper'
 require 'lego_nxt/usb_connection'
 require 'lego_nxt/constants'

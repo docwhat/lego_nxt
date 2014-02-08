@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module LegoNXT
   # All LegoNXT errors are subclassed from this
   # error class.

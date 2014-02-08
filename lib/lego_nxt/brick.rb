@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require "lego_nxt/types"
 require "lego_nxt/constants"
 require "lego_nxt/errors"
