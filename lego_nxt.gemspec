@@ -26,6 +26,7 @@ Gem::Specification.new do |gem|
   # Continous integration testing
   gem.add_development_dependency 'guard', '~> 2.4'
   gem.add_development_dependency 'guard-rspec', '~> 4.2'
+  gem.add_development_dependency 'guard-shell' # Used for customizations.
 
   #For detecting changes in the filesystem
   gem.add_development_dependency 'rb-inotify', '~> 0.9'
