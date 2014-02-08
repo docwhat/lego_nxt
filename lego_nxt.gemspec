@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.name                  = 'lego_nxt'
   gem.require_paths         = ['lib']
   gem.version               = LegoNXT::VERSION
-  gem.required_ruby_version = '>= 1.9.2'
+  gem.required_ruby_version = '>= 1.9.3'
 
   gem.add_runtime_dependency 'libusb', '~> 0.1.3'
 
