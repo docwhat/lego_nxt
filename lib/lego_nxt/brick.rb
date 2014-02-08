@@ -126,6 +126,16 @@ module LegoNXT
       @portmap[port]
     end
 
+    # Converts a port symbol into the appropriate byte().
+    #
+    # @param [Fixnum] port It should be 1, 2, 3, or 4 (which correspond to the markings on the brick )
+    # @return [UnsignedByte] The corresponding byte for the port.
+    def normalize_sensor_port port
+      raw_port = Integer(port) - 1
+      raise ArgumentError.new("Sensor ports must be 1 through 4: got #{port.inspect}") unless [0,1,2,3].include? raw_port
+      byte(raw_port)
+    end
+
     # Converts a boolean value into `byte(0)` or `byte(1)`
     #
     # @param [Object] bool The value to convert.

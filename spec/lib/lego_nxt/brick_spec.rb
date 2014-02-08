@@ -72,6 +72,23 @@ describe LegoNXT::Brick  do
     end
   end
 
+  describe ".normalize_sensor_port" do
+    [1,2,3,4].each do |port|
+      context "with port #{port.inspect}" do
+        it "accepts port #{port.inspect}" do
+          subject.normalize_sensor_port port
+        end
+        it "it returns a Type" do
+          subject.normalize_sensor_port(port).should be_a_kind_of(LegoNXT::Type)
+        end
+      end
+    end
+
+    it "raises an error if it isn't a port integer" do
+      expect { subject.normalize_sensor_port(5) }.to raise_error(ArgumentError)
+    end
+  end
+
   describe ".normalize_boolean" do
     it "returns byte(1) for true" do
       subject.normalize_boolean(true).should == byte(1)
