@@ -8,4 +8,4 @@ brick.run_motor :all
 sleep 3
 brick.run_motor :all, -100
 sleep 3
-brick.stop_motor
+brick.stop_motor :all
