@@ -28,7 +28,9 @@ describe LegoNXT::Brick  do
 
   describe ".transceive" do
     it "should pass the message to the connection" do
-      connection.should_receive(:transceive).with("\x80\x42") { "\x02\x42\x00" }
+      connection.
+        should_receive(:transceive).
+        with("\x80\x42".force_encoding('ASCII-8BIT')) { "\x02\x42\x00".force_encoding('ASCII-8BIT') }
       subject.transceive byte(0x80), byte(0x42)
     end
 

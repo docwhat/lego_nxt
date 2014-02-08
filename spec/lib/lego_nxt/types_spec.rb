@@ -25,25 +25,25 @@ shared_examples_for "a type" do |minimum, maximum, pack_char|
     end
 
     it "accepts a #{described_class} object" do
-      described_class.new(described_class.new random_int).to_i.should == random_int
+      described_class.new(described_class.new random_int).to_i.should eq(random_int)
     end
   end
 
   describe ".byte_string" do
     it "returns the byte string for #{random_int}" do
-      subject.byte_string.should == [random_int].pack(pack_char)
+      subject.byte_string.should eq([random_int].pack(pack_char))
     end
   end
 
   describe ".to_i" do
     it "returns the original integer #{random_int}" do
-      subject.to_i.should == random_int
+      subject.to_i.should eq(random_int)
     end
   end
 
   describe ".==" do
     it "should return true if both are the same integer" do
-      described_class.new(random_int).should == described_class.new(random_int)
+      described_class.new(random_int).should eq(described_class.new(random_int))
     end
 
     it "shouldn't return true if the classes are different" do
@@ -52,7 +52,7 @@ shared_examples_for "a type" do |minimum, maximum, pack_char|
                     else
                       LegoNXT::SignedByte
                     end
-      described_class.new(12).should_not == other_class.new(12)
+      described_class.new(12).should_not eq(other_class.new(12))
     end
   end
 end
@@ -83,7 +83,7 @@ describe LegoNXT::UnsignedWord do
   it_should_behave_like "an alias" , :uword
 
   it "should be little endian" do
-    described_class.new(1000).byte_string.should == "\xE8\x03"
+    described_class.new(1000).byte_string.should eq("\xE8\x03".force_encoding('ASCII-8BIT'))
   end
 end
 
@@ -92,7 +92,7 @@ describe LegoNXT::SignedWord do
   it_should_behave_like "an alias" , :sword
 
   it "should be little endian" do
-    described_class.new(-1000).byte_string.should == "\x18\xFC"
+    described_class.new(-1000).byte_string.should eq("\x18\xFC".force_encoding('ASCII-8BIT'))
   end
 end
 
@@ -102,7 +102,7 @@ describe LegoNXT::UnsignedLong do
   it_should_behave_like "an alias" , :ulong
 
   it "should be little endian" do
-    described_class.new(1000).byte_string.should == "\xE8\x03\x00\x00"
+    described_class.new(1000).byte_string.should eq("\xE8\x03\x00\x00".force_encoding('ASCII-8BIT'))
   end
 end
 
@@ -111,17 +111,17 @@ describe LegoNXT::SignedLong do
   it_should_behave_like "an alias" , :slong
 
   it "should be little endian" do
-    described_class.new(-1000).byte_string.should == "\x18\xFC\xFF\xFF"
+    described_class.new(-1000).byte_string.should eq("\x18\xFC\xFF\xFF".force_encoding('ASCII-8BIT'))
   end
 end
 
 describe :bytestring do
   it "should accept integers" do
-    bytestring(0x00, 0x20, 0x30).should == "\x00\x20\x30"
+    bytestring(0x00, 0x20, 0x30).should eq("\x00\x20\x30")
   end
 
   it "should accept Types" do
     type = LegoNXT::SignedLong.new 1234
-    bytestring(type).should == type.byte_string
+    bytestring(type).should eq(type.byte_string)
   end
 end
