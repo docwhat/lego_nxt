@@ -66,7 +66,7 @@ module LegoNXT
       transmit(
         LegoNXT::DirectOps::NO_RESPONSE,
         LegoNXT::DirectOps::SETOUTPUTSTATE,
-        normalize_motor_port(port, accept_all=true),
+        normalize_motor_port(port, true),
         sbyte(power), # power set point
         byte(1),      # mode
         byte(0),      # regulation mode
