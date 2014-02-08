@@ -1,7 +1,6 @@
-require "highline/system_extensions"
+require 'io/console'
 require 'lego_nxt'
 
-include HighLine::SystemExtensions
 include LegoNXT::Notes
 
 puts
@@ -21,11 +20,11 @@ puts
 
 brick = LegoNXT::connect
 
-while @char != 27
-  @char = get_character
+while @char != "\e"
+  @char = STDIN.getch
 
   if @char != nil
-    case @char.chr
+    case @char
     when 'a'
       @note = F4
     when 'w'
@@ -69,3 +68,5 @@ while @char != 27
     brick.play_tone @note.to_i, 500
   end
 end
+
+LegoNXT::disconnect
