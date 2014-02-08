@@ -70,7 +70,18 @@ document](http://www.eng.buffalo.edu/~colinlea/Bluetooth_With_NXT.pdf)
 
 ## Usage
 
-TODO: Write usage instructions here
+The easiest way to get started is to experiment with some of the examples. Use
+the run script in the examples directory to run examples (`-l` will list them).
+
+```
+examples/run -l
+Examples:
+  * motor
+  * piano
+  * scale
+
+examples/run piano
+```
 
 ## Documentation
 
