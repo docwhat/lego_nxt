@@ -40,6 +40,14 @@ module LegoNXT
       ).unpack('S<')[0]
     end
 
+    def light_sensor
+      transceive(
+        DirectOps::REQUIRE_RESPONSE,
+        DirectOps::LSREAD,
+        normalize_motor_port(:a),
+      ).unpack('S<')[0]
+    end
+
     # Resets the tracking for the motor position.
     #
     # @param [Symbol] port The port the motor is attached to. Should be `:a`, `:b`, or `:c`

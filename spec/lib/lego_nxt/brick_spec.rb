@@ -112,6 +112,13 @@ describe LegoNXT::Brick  do
     end
   end
 
+#   describe ".light_sensor" do
+#     it "returns something" do
+#       connection.stub(:transceive) { bytestring 0x02, LegoNXT::DirectOps::LSREAD, 0x00, uword(1234) }
+#       subject.light_sensor.should == 1234
+#     end
+#   end
+
   describe ".reset_motor_position" do
     [:a, :b, :c].each do |port|
       [true, false].each do |relative|

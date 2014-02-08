@@ -14,3 +14,11 @@ namespace :usb do
     Rake::Task["spec"].invoke
   end
 end
+
+desc "Open a console with Lego_NXT"
+task :console do
+  require 'pry'
+  require 'lego_nxt'
+  ARGV.clear
+  Pry.start
+end
