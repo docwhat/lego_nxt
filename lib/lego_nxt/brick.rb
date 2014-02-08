@@ -43,21 +43,56 @@ module LegoNXT
     end
 
 
-    def light_sensor(port)
-      warn "This function doesn't work yet."
+    def light_sensor(port, color=:none)
+      sensor_type={
+        full: SensorTypes::COLORFULL,
+        red: SensorTypes::COLORRED,
+        green: SensorTypes::COLORGREEN,
+        blue: SensorTypes::COLORBLUE,
+        none: SensorTypes::COLORNONE,
+      }[color]
+
+      raise ArgumentError, "Unknown color mode: #{color}" if sensor_type.nil?
+
       port_byte = normalize_sensor_port(port)
       transmit(
         DirectOps::NO_RESPONSE,
         DirectOps::SETINPUTMODE,
         port_byte,
-        SensorTypes::LIGHT_INACTIVE,
-        SensorModes::PCTFULLSCALEMODE,
+        sensor_type,
+        SensorModes::RAWMODE,
       )
-      transceive(
+
+      array = transceive(
         DirectOps::REQUIRE_RESPONSE,
         DirectOps::GETINPUTVALUES,
         port_byte,
-      ).unpack('SSSSSSSSLLLL')
+      ).
+      #bytes: 345678ACD
+      unpack('CCCCCSSSS')
+
+      (
+        _, # Input port -- We know this, ignore it.
+        _, # 0x01 if new data value should be seen as valid data
+        is_calibrated, # 0x01 if calibration file found
+        _, # Sensor Type -- We know this, ignore it.
+        _, # Sensor Mode -- We know this, ignore it.
+        _, # Raw A/D value
+        _, # Normalized A/D value
+        scaled_value, # Scaled A/D value
+        calibrated_value, # Calibrated version of Scaled
+      ) = array
+
+      return is_calibrated ? calibrated_value : scaled_value
+    ensure
+      # Turn off the light.
+      transmit(
+        DirectOps::NO_RESPONSE,
+        DirectOps::SETINPUTMODE,
+        port_byte,
+        SensorTypes::COLORNONE,
+        SensorModes::RAWMODE,
+      ) unless :none == color
     end
 
     # Resets the tracking for the motor position.
@@ -113,8 +148,11 @@ module LegoNXT
 
     # A wrapper around the transceive function for the connection.
     #
+    # The first three bytes of the return value are stripped off. Errors are
+    # raised if they show a problem.
+    #
     # @param [LegoNXT::Type] bits A list of bytes.
-    # @return [String] Bytes as returned by the connection object.
+    # @return [String] The bytes returned; bytes 0 through 2 are stripped.
     def transceive *bits
       bitstring = bits.map(&:byte_string).join("")
       retval = connection.transceive bitstring

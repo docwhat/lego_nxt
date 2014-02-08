@@ -163,6 +163,11 @@ module LegoNXT
     LOWSPEED           = byte(0x0A)
     LOWSPEED_9V        = byte(0x0B)
     NO_OF_SENSOR_TYPES = byte(0x0C)
+    COLORFULL          = byte(0x0D)
+    COLORRED           = byte(0x0E)
+    COLORGREEN         = byte(0x0F)
+    COLORBLUE          = byte(0x10)
+    COLORNONE          = byte(0x11)
   end
 
   # Sensor Modes (for SETINPUTMODE)
