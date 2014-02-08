@@ -147,4 +147,35 @@ module LegoNXT
     ILLEGAL_FILE_NAME_ERROR                             = byte(0x92)
     ILLEGAL_HANDLE_ERROR                                = byte(0x93)
   end
+
+  # Sensor Types (for SETINPUTMODE)
+  module SensorTypes
+    NO_SENSOR          = byte(0x00)
+    SWITCH             = byte(0x01)
+    TEMPERATURE        = byte(0x02)
+    REFLECTION         = byte(0x03)
+    ANGLE              = byte(0x04)
+    LIGHT_ACTIVE       = byte(0x05)
+    LIGHT_INACTIVE     = byte(0x06)
+    SOUND_DB           = byte(0x07)
+    SOUND_DBA          = byte(0x08)
+    CUSTOM             = byte(0x09)
+    LOWSPEED           = byte(0x0A)
+    LOWSPEED_9V        = byte(0x0B)
+    NO_OF_SENSOR_TYPES = byte(0x0C)
+  end
+
+  # Sensor Modes (for SETINPUTMODE)
+  module SensorModes
+    RAWMODE           = byte(0x00)
+    BOOLEANMODE       = byte(0x20)
+    TRANSITIONCNTMODE = byte(0x40)
+    PERIODCOUNTERMODE = byte(0x60)
+    PCTFULLSCALEMODE  = byte(0x80)
+    CELSIUSMODE       = byte(0xA0)
+    FAHRENHEITMODE    = byte(0xC0)
+    ANGLESTEPSMODE    = byte(0xE0)
+    SLOPEMASK         = byte(0x1F)
+    MODEMASK          = byte(0xE0)
+  end
 end
