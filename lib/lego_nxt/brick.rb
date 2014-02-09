@@ -27,7 +27,7 @@ module LegoNXT
     %w{a b c}.each do |p|
       define_method "port_#{p}=".to_sym do |port_object|
         if port_object.respond_to?(:assign_brick_and_motor_port)
-          port_object.assign_brick_and_motor_port(port_object, p.to_sym)
+          port_object.assign_brick_and_motor_port(self, p.to_sym)
           instance_variable_set("@port_#{p}", port_object)
         else
           fail InvalidPortObject, "This isn't suitable MotorPort: #{port_object.inspect}"
@@ -38,7 +38,7 @@ module LegoNXT
     (1..4).each do |p|
       define_method "port_#{p}=".to_sym do |port_object|
         if port_object.respond_to?(:assign_brick_and_sensor_port)
-          port_object.assign_brick_and_sensor_port(port_object, p)
+          port_object.assign_brick_and_sensor_port(self, p)
           instance_variable_set("@port_#{p}", port_object)
         else
           fail InvalidPortObject, "This isn't suitable SensorPort: #{port_object.inspect}"

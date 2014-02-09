@@ -90,11 +90,20 @@ describe LegoNXT::Brick do
         brick.send("#{port_name}=", motor_port)
         brick.send(port_name).should eq(motor_port)
       end
+
+      it 'calls assign_brick_and_motor_port on the Motor' do
+        motor_port = instance_double('LegoNXT::MotorPort', assign_brick_and_motor_port: nil)
+        expect(motor_port)
+          .to receive(:assign_brick_and_motor_port)
+          .with(brick, port_symbol)
+        brick.send("#{port_name}=", motor_port)
+      end
     end
 
     %w{a b c}.each do |port_letter|
       describe "#port_#{port_letter}" do
-        let(:port_name) { "port_#{port_letter}" }
+        let(:port_symbol) { port_letter.to_sym }
+        let(:port_name)   { "port_#{port_letter}" }
 
         it_behaves_like 'motor port getter/setter'
       end
@@ -114,10 +123,19 @@ describe LegoNXT::Brick do
         brick.send("#{port_name}=", sensor_port)
         brick.send(port_name).should eq(sensor_port)
       end
+
+      it 'calls assign_brick_and_sensor_port on the Sensor' do
+        sensor_port = instance_double('LegoNXT::SensorPort', assign_brick_and_sensor_port: nil)
+        expect(sensor_port)
+          .to receive(:assign_brick_and_sensor_port)
+          .with(brick, port_number)
+        brick.send("#{port_name}=", sensor_port)
+      end
     end
 
     (1..4).each do |port_number|
       describe "#port_#{port_number}" do
+        let(:port_number) { port_number }
         let(:port_name) { "port_#{port_number}" }
 
         it_behaves_like 'sensor port getter/setter'
