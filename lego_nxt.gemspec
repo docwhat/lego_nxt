@@ -16,8 +16,8 @@ Gem::Specification.new do |gem|
   gem.version               = LegoNXT::VERSION
   gem.required_ruby_version = '>= 1.9.3'
 
-  gem.add_runtime_dependency 'libusb', '~> 0.1.3'
-  gem.add_runtime_dependency 'music',  '~> 0.7.0'
+  gem.add_runtime_dependency 'libusb', '~> 0.4'
+  gem.add_runtime_dependency 'music',  '~> 0.7'
 
   gem.add_development_dependency 'rake', '~> 10.0'
   gem.add_development_dependency 'pry'
