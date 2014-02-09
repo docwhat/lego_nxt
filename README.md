@@ -97,7 +97,8 @@ Alternatively, you can read the [online documentation](http://rubydoc.info/githu
 Most tests will work without owning a NXT brick
 
 To run all the tests, including the ones that require a NXT brick, then you need to
-plugin your NXT brick, power it on, and run `rake usb:spec`
+plugin your NXT brick, power it on, and run `rake usb:spec` or to run just the
+NXT tests use `rspec --tag needs_nxt`
 
 ## Contributing
 
