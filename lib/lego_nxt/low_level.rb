@@ -1,7 +1,10 @@
-require "lego_nxt/low_level/brick"
-require "lego_nxt/low_level/usb_connection"
+require 'lego_nxt/low_level/types'
+require 'lego_nxt/low_level/constants'
+require 'lego_nxt/low_level/brick'
+require 'lego_nxt/low_level/usb_connection'
 
 module LegoNXT
+  # A module of all the low level operations.
   module LowLevel
     # A helper method that attempt to attach to a brick and
     # returns a {LegoNXT::LowLevel::Brick object}.
@@ -20,4 +23,3 @@ module LegoNXT
     end
   end
 end
-
