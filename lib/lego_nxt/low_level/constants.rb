@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require 'lego_nxt/low_level'
-require "lego_nxt/low_level/types"
+require 'lego_nxt/low_level/types'
 
 module LegoNXT::LowLevel
   # op-codes for direct commands.
