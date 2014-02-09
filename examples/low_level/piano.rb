@@ -1,7 +1,7 @@
 require 'io/console'
-require 'lego_nxt'
+require 'lego_nxt/low_level'
 
-include LegoNXT::Notes
+include LegoNXT::LowLevel::Notes
 
 puts
 puts "Play your LEGO piano with your keyboard! (esc to quit)"
@@ -18,7 +18,7 @@ puts "|___|___|___|___|___|___|___|___|___|___|___|"
 puts "  a   s   d   f   g   h   j   k   l   ;   '  "
 puts
 
-brick = LegoNXT::connect
+brick = LegoNXT::LowLevel::connect
 
 key_pressed = STDIN.getch
 while key_pressed != "\e"

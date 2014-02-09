@@ -1,7 +1,8 @@
 # encoding: utf-8
 # Plays a quick scale.
 
-brick = LegoNXT::connect
+require 'lego_nxt/low_level'
+brick = LegoNXT::LowLevel::connect
 
 C4 = 261.63
 D4 = 293.66

@@ -1,6 +1,8 @@
 # encoding: utf-8
 
-module LegoNXT
+require 'lego_nxt/low_level'
+
+module LegoNXT::LowLevel
   # A superclass for all the types.
   #
   # This is not general useful.
@@ -153,7 +155,7 @@ end
 # @param [Fixnum] i The integer value for the byte.
 # @return [LegoNXT::UnsignedByte]
 def ubyte i
-  LegoNXT::UnsignedByte.new i
+  LegoNXT::LowLevel::UnsignedByte.new i
 end
 
 # Helper method for creating an {LegoNXT::SignedByte}
@@ -161,7 +163,7 @@ end
 # @param [Fixnum] i The integer value for the byte.
 # @return [LegoNXT::SignedByte]
 def sbyte i
-  LegoNXT::SignedByte.new i
+  LegoNXT::LowLevel::SignedByte.new i
 end
 
 # Helper method for creating an {LegoNXT::UnsignedWord}
@@ -177,7 +179,7 @@ end
 # @param [Fixnum] i The integer value for the word.
 # @return [LegoNXT::UnsignedWord]
 def uword i
-  LegoNXT::UnsignedWord.new i
+  LegoNXT::LowLevel::UnsignedWord.new i
 end
 
 # Helper method for creating an {LegoNXT::SignedWord}
@@ -185,7 +187,7 @@ end
 # @param [Fixnum] i The integer value for the word.
 # @return [LegoNXT::SignedWord]
 def sword i
-  LegoNXT::SignedWord.new i
+  LegoNXT::LowLevel::SignedWord.new i
 end
 
 # Helper method for creating an {LegoNXT::UnsignedLong}
@@ -201,7 +203,7 @@ end
 # @param [Fixnum] i The integer value for the long.
 # @return [LegoNXT::UnsignedLong]
 def ulong i
-  LegoNXT::UnsignedLong.new i
+  LegoNXT::LowLevel::UnsignedLong.new i
 end
 
 # Helper method for creating an {LegoNXT::SignedLong}
@@ -209,7 +211,7 @@ end
 # @param [Fixnum] i The integer value for the long.
 # @return [LegoNXT::SignedLong]
 def slong i
-  LegoNXT::SignedLong.new i
+  LegoNXT::LowLevel::SignedLong.new i
 end
 
 # Takes a sequence of `Integer`s or {LegoNXT::Type}s.
@@ -219,7 +221,7 @@ end
 def bytestring *bytes
   bytes.map do |byte|
     if not byte.respond_to? :byte_string
-      byte = LegoNXT::UnsignedByte.new(byte)
+      byte = LegoNXT::LowLevel::UnsignedByte.new(byte)
     end
     byte.byte_string
   end.join('')

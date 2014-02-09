@@ -1,17 +1,17 @@
 # encoding: utf-8
 
 require "spec_helper"
-require "lego_nxt/brick"
-require 'lego_nxt/constants'
+require "lego_nxt/low_level/brick"
+require 'lego_nxt/low_level/constants'
 
-describe LegoNXT::Brick  do
+describe LegoNXT::LowLevel::Brick  do
   let(:connection) do
     double(name: 'Connection').tap do |conn|
       conn.stub(:transmit)
       conn.stub(:transceive)
     end
   end
-  subject { LegoNXT::Brick.new(connection) }
+  subject { LegoNXT::LowLevel::Brick.new(connection) }
 
   describe "#new" do
     it "sets the connection property" do
@@ -62,7 +62,7 @@ describe LegoNXT::Brick  do
           subject.normalize_motor_port port
         end
         it "it returns a Type" do
-          subject.normalize_motor_port(port).should be_a_kind_of(LegoNXT::Type)
+          subject.normalize_motor_port(port).should be_a_kind_of(LegoNXT::LowLevel::Type)
         end
       end
     end
@@ -79,7 +79,7 @@ describe LegoNXT::Brick  do
           subject.normalize_sensor_port port
         end
         it "it returns a Type" do
-          subject.normalize_sensor_port(port).should be_a_kind_of(LegoNXT::Type)
+          subject.normalize_sensor_port(port).should be_a_kind_of(LegoNXT::LowLevel::Type)
         end
       end
     end
@@ -117,8 +117,8 @@ describe LegoNXT::Brick  do
 
     it "should transmit the correct info" do
       subject.should_receive(:transmit).with(
-        LegoNXT::DirectOps::NO_RESPONSE,
-        LegoNXT::DirectOps::PLAYTONE,
+        LegoNXT::LowLevel::DirectOps::NO_RESPONSE,
+        LegoNXT::LowLevel::DirectOps::PLAYTONE,
         uword(501),
         uword(502)
       )
@@ -128,14 +128,14 @@ describe LegoNXT::Brick  do
 
   describe ".battery_level" do
     it "returns something" do
-      connection.stub(:transceive) { bytestring 0x02, LegoNXT::DirectOps::GETBATTERYLEVEL, 0x00, uword(8184) }
+      connection.stub(:transceive) { bytestring 0x02, LegoNXT::LowLevel::DirectOps::GETBATTERYLEVEL, 0x00, uword(8184) }
       subject.battery_level.should == 8184
     end
   end
 
 #   describe ".light_sensor" do
 #     it "returns something" do
-#       connection.stub(:transceive) { bytestring 0x02, LegoNXT::DirectOps::LSREAD, 0x00, uword(1234) }
+#       connection.stub(:transceive) { bytestring 0x02, LegoNXT::LowLevel::DirectOps::LSREAD, 0x00, uword(1234) }
 #       subject.light_sensor.should == 1234
 #     end
 #   end

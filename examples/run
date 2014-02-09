@@ -21,10 +21,8 @@ end
 
 def list
   puts "Examples:"
-  EXAMPLE_DIR.children.each do |fname|
-    next unless fname.to_s.end_with?('.rb')
-    next unless fname.file?
-    puts " * #{fname.basename '.rb'}"
+  Dir[EXAMPLE_DIR + '**' + '*.rb'].map{ |e| Pathname(e) }.each do |example|
+    puts " * #{example.relative_path_from(EXAMPLE_DIR)}" if example.file?
   end
 end
 
@@ -37,5 +35,5 @@ begin
     require path if path.exist?
   end
 ensure
-  LegoNXT::disconnect
+  LegoNXT::LowLevel::disconnect if LegoNXT::const_defined?(:LowLevel)
 end

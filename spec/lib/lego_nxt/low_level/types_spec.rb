@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require "spec_helper"
-require "lego_nxt/types"
+require "lego_nxt/low_level/types"
 
 shared_examples_for "a type" do |minimum, maximum, pack_char|
   random_int = minimum + rand(maximum - minimum)
@@ -47,10 +47,10 @@ shared_examples_for "a type" do |minimum, maximum, pack_char|
     end
 
     it "shouldn't return true if the classes are different" do
-      other_class = if described_class == LegoNXT::SignedByte
-                      LegoNXT::UnsignedByte
+      other_class = if described_class == LegoNXT::LowLevel::SignedByte
+                      LegoNXT::LowLevel::UnsignedByte
                     else
-                      LegoNXT::SignedByte
+                      LegoNXT::LowLevel::SignedByte
                     end
       described_class.new(12).should_not eq(other_class.new(12))
     end
@@ -66,18 +66,18 @@ shared_examples_for "an alias" do |method|
   end
 end
 
-describe LegoNXT::UnsignedByte do
+describe LegoNXT::LowLevel::UnsignedByte do
   it_should_behave_like "a type"  , 0x00        , 0xFF       , 'C'
   it_should_behave_like "an alias" , :byte
   it_should_behave_like "an alias" , :ubyte
 end
 
-describe LegoNXT::SignedByte do
+describe LegoNXT::LowLevel::SignedByte do
   it_should_behave_like "a type"  , -0x80       , 0x7F       , 'c'
   it_should_behave_like "an alias" , :sbyte
 end
 
-describe LegoNXT::UnsignedWord do
+describe LegoNXT::LowLevel::UnsignedWord do
   it_should_behave_like "a type"  , 0x0000      , 0xffff     , 'S<'
   it_should_behave_like "an alias" , :word
   it_should_behave_like "an alias" , :uword
@@ -87,7 +87,7 @@ describe LegoNXT::UnsignedWord do
   end
 end
 
-describe LegoNXT::SignedWord do
+describe LegoNXT::LowLevel::SignedWord do
   it_should_behave_like "a type"  , -0x8000     , 0x7fff     , 's<'
   it_should_behave_like "an alias" , :sword
 
@@ -96,7 +96,7 @@ describe LegoNXT::SignedWord do
   end
 end
 
-describe LegoNXT::UnsignedLong do
+describe LegoNXT::LowLevel::UnsignedLong do
   it_should_behave_like "a type"  , 0x00000000  , 0xffffffff , 'L<'
   it_should_behave_like "an alias" , :long
   it_should_behave_like "an alias" , :ulong
@@ -106,7 +106,7 @@ describe LegoNXT::UnsignedLong do
   end
 end
 
-describe LegoNXT::SignedLong do
+describe LegoNXT::LowLevel::SignedLong do
   it_should_behave_like "a type"  , -0x80000000 , 0x7fffffff , 'l<'
   it_should_behave_like "an alias" , :slong
 
@@ -121,7 +121,7 @@ describe :bytestring do
   end
 
   it "should accept Types" do
-    type = LegoNXT::SignedLong.new 1234
+    type = LegoNXT::LowLevel::SignedLong.new 1234
     bytestring(type).should eq(type.byte_string)
   end
 end

@@ -1,9 +1,10 @@
 # encoding: utf-8
 
 require 'libusb'
+require 'lego_nxt/low_level'
 require 'lego_nxt/errors'
 
-module LegoNXT
+module LegoNXT::LowLevel
 
   # Low-level connection object for communicating with the NXT brick
   # via USB.
@@ -63,7 +64,7 @@ module LegoNXT
     # @param {String} bits This must be a binary string. Use `Array#pack('C*')` to generate the string.
     # @return [Boolean] Returns true if all the data was sent and received by the NXT.
     def transmit bits
-      raise BadOpCodeError unless bytestring(DirectOps::NO_RESPONSE, SystemOps::NO_RESPONSE).include? bits[0]
+      raise ::LegoNXT::BadOpCodeError unless bytestring(DirectOps::NO_RESPONSE, SystemOps::NO_RESPONSE).include? bits[0]
       transmit! bits
     end
 
@@ -80,8 +81,8 @@ module LegoNXT
     # @raise {LegoNXT::TransmitError} Raised if the {#transmit} fails.
     # @return [String] A packed string of the response bits. Use `String#unpack('C*')`.
     def transceive bits
-      raise BadOpCodeError unless bytestring(DirectOps::REQUIRE_RESPONSE, SystemOps::REQUIRE_RESPONSE).include? bits[0]
-      raise TransmitError unless transmit! bits
+      raise ::LegoNXT::BadOpCodeError unless bytestring(DirectOps::REQUIRE_RESPONSE, SystemOps::REQUIRE_RESPONSE).include? bits[0]
+      raise ::LegoNXT::TransmitError unless transmit! bits
       bytes_received = @handle.bulk_transfer dataIn: 64, endpoint: USB_ENDPOINT_IN
       return bytes_received
     end
@@ -106,7 +107,7 @@ module LegoNXT
     def open
       context = LIBUSB::Context.new
       device = context.devices(:idVendor => LEGO_VENDOR_ID, :idProduct => NXT_PRODUCT_ID).first
-      raise NoDeviceError.new("Please make sure the device is plugged in and powered on") if device.nil?
+      raise ::LegoNXT::NoDeviceError.new("Please make sure the device is plugged in and powered on") if device.nil?
       @handle = device.open
       @handle.claim_interface(0)
     end

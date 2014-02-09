@@ -2,8 +2,9 @@
 # Runs the brick forwards, then backwards.
 #
 # It runs on all ports, so it doesn't matter which port you use.
+require 'lego_nxt/low_level'
 
-brick = LegoNXT::connect
+brick = LegoNXT::LowLevel::connect
 
 brick.run_motor :all
 sleep 3

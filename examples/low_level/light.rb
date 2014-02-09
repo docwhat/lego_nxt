@@ -3,10 +3,10 @@
 # Reads the light sensor for 10 seconds.
 #
 # The light sensor must be on port 1
-require 'lego_nxt/brick'
+require 'lego_nxt/low_level'
 require 'ap'
 
-brick = LegoNXT::connect
+brick = LegoNXT::LowLevel::connect
 
 count = 20
 (1..count).each do |i|

@@ -1,10 +1,11 @@
 # encoding: utf-8
 
-require "lego_nxt/types"
-require "lego_nxt/constants"
-require "lego_nxt/errors"
+require 'lego_nxt/low_level'
+require 'lego_nxt/low_level/types'
+require 'lego_nxt/low_level/constants'
+require 'lego_nxt/errors'
 
-module LegoNXT
+module LegoNXT::LowLevel
   # A mid-level API for talking to a LEGO NXT brick.
   class Brick
     # The connection object.
@@ -117,8 +118,8 @@ module LegoNXT
     def run_motor port, power=100
       raise ArgumentError.new("Power must be -100 through 100") if power < -100 || power > 100
       transmit(
-        LegoNXT::DirectOps::NO_RESPONSE,
-        LegoNXT::DirectOps::SETOUTPUTSTATE,
+        DirectOps::NO_RESPONSE,
+        DirectOps::SETOUTPUTSTATE,
         normalize_motor_port(port, true),
         sbyte(power), # power set point
         byte(1),      # mode
@@ -157,12 +158,12 @@ module LegoNXT
       bitstring = bits.map(&:byte_string).join("")
       retval = connection.transceive bitstring
       # Check that it's a response bit.
-      raise LegoNXT::BadResponseError unless retval[0] == "\x02"
+      raise ::LegoNXT::BadResponseError unless retval[0] == "\x02"
       # Check that it's for this command.
-      raise LegoNXT::BadResponseError unless retval[1] == bitstring[1]
+      raise ::LegoNXT::BadResponseError unless retval[1] == bitstring[1]
       # Check that there is no error.
       # TODO: This should raise a specific error based on the status bit.
-      raise LegoNXT::StatusError unless retval[2] == "\x00"
+      raise ::LegoNXT::StatusError unless retval[2] == "\x00"
       return retval[3..-1]
     end
 
