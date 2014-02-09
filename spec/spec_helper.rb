@@ -41,5 +41,5 @@ RSpec.configure do |config|
 end
 
 RSpec::Fire.configure do |config|
-  config.verify_constant_names = true
+  # config.verify_constant_names = true
 end

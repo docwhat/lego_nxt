@@ -76,4 +76,52 @@ describe LegoNXT::Brick do
       brick.wait duration
     end
   end
+
+  context 'the motor ports' do
+    shared_examples 'motor port getter/setter' do
+
+      it 'raises an error with a non-MotorPort object' do
+        expect { brick.send("#{port_name}=", double('Not a MotorPort')) }
+          .to raise_error(LegoNXT::InvalidPortObject)
+      end
+
+      it 'assigns a MotorPort object' do
+        motor_port = instance_double('LegoNXT::MotorPort', assign_brick_and_motor_port: nil)
+        brick.send("#{port_name}=", motor_port)
+        brick.send(port_name).should eq(motor_port)
+      end
+    end
+
+    %w{a b c}.each do |port_letter|
+      describe "#port_#{port_letter}" do
+        let(:port_name) { "port_#{port_letter}" }
+
+        it_behaves_like 'motor port getter/setter'
+      end
+    end
+  end
+
+  context 'the sensor ports' do
+    shared_examples 'sensor port getter/setter' do
+
+      it 'raises an error with a non-SensorPort object' do
+        expect { brick.send("#{port_name}=", double('Not a SensorPort')) }
+          .to raise_error(LegoNXT::InvalidPortObject)
+      end
+
+      it 'assigns a SensorPort object' do
+        sensor_port = instance_double('LegoNXT::SensorPort', assign_brick_and_sensor_port: nil)
+        brick.send("#{port_name}=", sensor_port)
+        brick.send(port_name).should eq(sensor_port)
+      end
+    end
+
+    (1..4).each do |port_number|
+      describe "#port_#{port_number}" do
+        let(:port_name) { "port_#{port_number}" }
+
+        it_behaves_like 'sensor port getter/setter'
+      end
+    end
+  end
 end

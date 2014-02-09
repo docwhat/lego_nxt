@@ -1,10 +1,14 @@
 require 'lego_nxt/low_level'
+require 'lego_nxt/errors'
+require 'lego_nxt/motor_port'
+require 'lego_nxt/sensor_port'
 require 'music/note'
 
 module LegoNXT
   # An Object that represents a Lego NXT Brick
   class Brick
     attr_writer :note_class
+    attr_reader :port_a, :port_b, :port_c, :port_1, :port_2, :port_3, :port_4
 
     DURATIONS = {
       whole:     3200,
@@ -19,6 +23,28 @@ module LegoNXT
 
     # Add Strings
     DURATIONS.keys.each { |k| DURATIONS[k.to_s] = DURATIONS[k] }
+
+    %w{a b c}.each do |p|
+      define_method "port_#{p}=".to_sym do |port_object|
+        if port_object.respond_to?(:assign_brick_and_motor_port)
+          port_object.assign_brick_and_motor_port(port_object, p.to_sym)
+          instance_variable_set("@port_#{p}", port_object)
+        else
+          fail InvalidPortObject, "This isn't suitable MotorPort: #{port_object.inspect}"
+        end
+      end
+    end
+
+    (1..4).each do |p|
+      define_method "port_#{p}=".to_sym do |port_object|
+        if port_object.respond_to?(:assign_brick_and_sensor_port)
+          port_object.assign_brick_and_sensor_port(port_object, p)
+          instance_variable_set("@port_#{p}", port_object)
+        else
+          fail InvalidPortObject, "This isn't suitable SensorPort: #{port_object.inspect}"
+        end
+      end
+    end
 
     def initialize(brick_connection = nil)
       @brick_connection = brick_connection.nil? ? LegoNXT::LowLevel.connect : brick_connection
@@ -39,7 +65,6 @@ module LegoNXT
 
     def play(note, duration = 500)
       ms = DURATIONS.fetch(duration, duration)
-      puts "NARF #{note} #{duration} #{ms}"
       note_ms = (ms * 0.9).to_i
       @brick_connection
         .play_tone(note_to_frequency(note), note_ms)
