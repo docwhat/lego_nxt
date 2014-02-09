@@ -1,72 +1,50 @@
 require 'io/console'
 require 'lego_nxt/low_level'
-
-include LegoNXT::LowLevel::Notes
+require 'music/note'
 
 puts
-puts "Play your LEGO piano with your keyboard! (esc to quit)"
+puts 'Play your LEGO piano with your keyboard! (esc to quit)'
 puts
-puts " ___________________________________________ "
-puts "|   w   e   r       y   u       o   p   [   |"
-puts "|   _   _   _       _   _       _   _   _   |"
-puts "|  | | | | | |  |  | | | |  |  | | | | | |  |"
-puts "|  | | | | | |  |  | | | |  |  | | | | | |  |"
-puts "|  |_| |_| |_|  |  |_| |_|  |  |_| |_| |_|  |"
-puts "|   |   |   |   |   |   |   |   |   |   |   |"
-puts "| F | G | A | B | C | D | E | F | G | A | B |"
-puts "|___|___|___|___|___|___|___|___|___|___|___|"
+puts ' ___________________________________________ '
+puts '|   w   e   r       y   u       o   p   [   |'
+puts '|   _   _   _       _   _       _   _   _   |'
+puts '|  | | | | | |  |  | | | |  |  | | | | | |  |'
+puts '|  | | | | | |  |  | | | |  |  | | | | | |  |'
+puts '|  |_| |_| |_|  |  |_| |_|  |  |_| |_| |_|  |'
+puts '|   |   |   |   |   |   |   |   |   |   |   |'
+puts '| F | G | A | B | C | D | E | F | G | A | B |'
+puts '|___|___|___|___|___|___|___|___|___|___|___|'
 puts "  a   s   d   f   g   h   j   k   l   ;   '  "
 puts
 
-brick = LegoNXT::LowLevel::connect
+brick = LegoNXT::LowLevel.connect
+
+QWERTY_MAP = {
+  'a' => 'F4',
+  'w' => 'F#4',
+  's' => 'G4',
+  'e' => 'G#3',
+  'd' => 'A3',
+  'r' => 'A#3',
+  'f' => 'B3',
+  'g' => 'C4',
+  'y' => 'C#4',
+  'h' => 'D4',
+  'u' => 'D#4',
+  'j' => 'E4',
+  'k' => 'F4',
+  'o' => 'F#4',
+  'l' => 'G4',
+  'p' => 'G#4',
+  ';' => 'A4',
+  '[' => 'A#4',
+  "'" => 'B4'
+}
 
 key_pressed = STDIN.getch
 while key_pressed != "\e"
-  case key_pressed
-  when 'a'
-    note_to_play = F4
-  when 'w'
-    note_to_play = Fs4
-  when 's'
-    note_to_play = G4
-  when 'e'
-    note_to_play = Af3
-  when 'd'
-    note_to_play = A3
-  when 'r'
-    note_to_play = Bf3
-  when 'f'
-    note_to_play = B3
-  when 'g'
-    note_to_play = C4
-  when 'y'
-    note_to_play = Cs4
-  when 'h'
-    note_to_play = D4
-  when 'u'
-    note_to_play = Ef4
-  when 'j'
-    note_to_play = E4
-  when 'k'
-    note_to_play = F4
-  when 'o'
-    note_to_play = Fs4
-  when 'l'
-    note_to_play = G4
-  when 'p'
-    note_to_play = Af4
-  when ';'
-    note_to_play = A4
-  when '['
-    note_to_play = Bf4
-  when "'"
-    note_to_play = B4
-  else
-    note_to_play = nil
-  end
+  note_to_play = QWERTY_MAP.fetch(key_pressed, nil)
 
-  brick.play_tone note_to_play.to_i, 500 unless note_to_play.nil?
+  brick.play_tone Music::Note.new(note_to_play).frequency, 500 unless note_to_play.nil?
   key_pressed = STDIN.getch
 end
-
-LegoNXT::disconnect

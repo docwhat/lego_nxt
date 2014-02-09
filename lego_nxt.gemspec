@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.summary               = %q{A gem to interface with LEGO MINDSTORMS NXT bricks.}
   gem.homepage              = 'http://github.com/docwhat/lego_nxt'
 
-  gem.files                 = `git ls-files`.split($\)
-  gem.executables           = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  gem.files                 = `git ls-files`.split($OUTPUT_RECORD_SEPARATOR)
+  gem.executables           = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   gem.test_files            = gem.files.grep(%r{^(test|spec|features)/})
   gem.name                  = 'lego_nxt'
   gem.require_paths         = ['lib']
@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = '>= 1.9.3'
 
   gem.add_runtime_dependency 'libusb', '~> 0.1.3'
+  gem.add_runtime_dependency 'music',  '~> 0.7.0'
 
   gem.add_development_dependency 'rake', '~> 10.0'
   gem.add_development_dependency 'pry'
