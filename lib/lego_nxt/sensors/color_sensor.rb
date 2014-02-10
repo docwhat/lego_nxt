@@ -13,12 +13,19 @@ module LegoNXT
         passive: ::LegoNXT::LowLevel::SensorTypes::COLORNONE
       }
 
+      # Turns on (or off for :passive) the lights
+      # for sensing colors.
       def color(color)
         color_byte = COLORS.fetch(color, nil)
 
         fail ArgumentError, "Invalid color #{color.inspect}: It must be one of #{COLORS.keys.inspect}" if color_byte.nil?
 
         input_value(color_byte)
+      end
+
+      # Turns off the lights
+      def off
+        color(:passive)
       end
 
       private
