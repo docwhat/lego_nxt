@@ -4,6 +4,20 @@ require 'lego_nxt/sensors/color_sensor'
 describe LegoNXT::Sensors::ColorSensor do
   subject(:sensor) { described_class.new }
 
+  describe '.new' do
+    it 'takes an optional color' do
+      color = described_class::COLORS.keys.sample
+
+      sensor = described_class.new(color)
+
+      expect(sensor)
+        .to receive(:color)
+        .with(color)
+
+      sensor.call_assignment_hooks
+    end
+  end
+
   describe '#color' do
     it 'sets the input value' do
       color = described_class::COLORS.keys.sample

@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'lego_nxt/sensor_port'
+require 'lego_nxt/sensors/base'
 
-describe LegoNXT::SensorPort do
+describe LegoNXT::Sensors::Base do
   subject(:sensor) { described_class.new }
 
   describe '#assign_brick_and_sensor_port' do

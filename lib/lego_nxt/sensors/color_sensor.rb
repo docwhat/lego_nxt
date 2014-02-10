@@ -1,10 +1,10 @@
-require 'lego_nxt/sensor_port'
+require 'lego_nxt/sensors/base'
 require 'lego_nxt/low_level/constants'
 
 module LegoNXT
   module Sensors
     # NXT 2.0 Color Sensor
-    class ColorSensor < SensorPort
+    class ColorSensor < Base
       COLORS = {
         full:    ::LegoNXT::LowLevel::SensorTypes::COLORFULL,
         red:     ::LegoNXT::LowLevel::SensorTypes::COLORRED,
@@ -12,6 +12,12 @@ module LegoNXT
         blue:    ::LegoNXT::LowLevel::SensorTypes::COLORBLUE,
         passive: ::LegoNXT::LowLevel::SensorTypes::COLORNONE
       }
+
+      def initialize(color = nil)
+        on_assignment do
+          color(color) unless color.nil?
+        end
+      end
 
       # Turns on (or off for :passive) the lights
       # for sensing colors.

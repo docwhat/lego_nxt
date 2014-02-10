@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'lego_nxt/motor_port'
+require 'lego_nxt/motors/base'
 
-describe LegoNXT::MotorPort do
+describe LegoNXT::Motors::Base do
   subject(:motor) { described_class.new }
 
   describe '#assign_brick_and_motor_port' do

@@ -1,7 +1,7 @@
 require 'lego_nxt/low_level'
 require 'lego_nxt/errors'
-require 'lego_nxt/motor_port'
-require 'lego_nxt/sensor_port'
+require 'lego_nxt/motors/base'
+require 'lego_nxt/sensors/base'
 require 'music/note'
 
 module LegoNXT
