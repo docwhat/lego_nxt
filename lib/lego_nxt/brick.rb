@@ -81,6 +81,20 @@ module LegoNXT
       )
     end
 
+    def fetch_input_value(port)
+      (
+        _, is_valid, # 0x01 if new data value should be seen as valid data
+        is_calibrated, # 0x01 if calibration file found
+        _, _, _, _, scaled_value, # Scaled A/D value
+        calibrated_value  # Calibrated version of Scaled
+      ) = @brick_connection.transceive(
+        ::LegoNXT::LowLevel::DirectOps::REQUIRE_RESPONSE, ::LegoNXT::LowLevel::DirectOps::GETINPUTVALUES,
+        port_id_to_byte(port)).unpack('CCCCCSSSS')
+
+      return nil unless is_valid == 0x01
+      is_calibrated == 0x01 ? calibrated_value : scaled_value
+    end
+
     private
 
     def port_id_to_byte(port_id)

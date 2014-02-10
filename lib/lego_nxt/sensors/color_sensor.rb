@@ -34,6 +34,15 @@ module LegoNXT
         color(:passive)
       end
 
+      def value
+        (1..3).each do
+          v = @brick.fetch_input_value(@port)
+          return v unless v.nil?
+          sleep 0.1
+        end
+        nil
+      end
+
       private
 
       def input_value(color_byte)

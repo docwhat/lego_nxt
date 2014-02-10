@@ -18,8 +18,12 @@ colors = [
 ]
 
 (colors + colors).shuffle.each do |color|
+  puts "Setting color to #{color}"
   color_sensor.color color
-  sleep 0.5
+  (1..5).each do |i|
+    sleep(i.to_f / 10)
+    ap color_sensor.value
+  end
 end
 
 # Turns it off
