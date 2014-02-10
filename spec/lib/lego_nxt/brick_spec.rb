@@ -77,6 +77,26 @@ describe LegoNXT::Brick do
     end
   end
 
+  describe '#input_value' do
+    let(:port) { "port #{rand 999}" }
+    let(:type) { "type #{rand 999}" }
+    let(:mode) { "mode #{rand 999}" }
+
+    it 'transmits the values to the brick_connection' do
+      expect(brick)
+        .to receive(:port_id_to_byte)
+        .with(port)
+        .and_return(:translated_port)
+
+      expect(brick_connection)
+        .to receive(:transmit)
+        .with(::LegoNXT::LowLevel::DirectOps::NO_RESPONSE, ::LegoNXT::LowLevel::DirectOps::SETINPUTMODE, :translated_port, type, mode)
+        .and_return(nil)
+
+      brick.input_value(port, type, mode)
+    end
+  end
+
   context 'the motor ports' do
     shared_examples 'motor port getter/setter' do
 

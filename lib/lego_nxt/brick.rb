@@ -70,5 +70,29 @@ module LegoNXT
         .play_tone(note_to_frequency(note), note_ms)
       wait(ms)
     end
+
+    def input_value(port, type, mode)
+      @brick_connection.transmit(
+        ::LegoNXT::LowLevel::DirectOps::NO_RESPONSE,
+        ::LegoNXT::LowLevel::DirectOps::SETINPUTMODE,
+        port_id_to_byte(port),
+        type,
+        mode
+      )
+    end
+
+    private
+
+    def port_id_to_byte(port_id)
+      {
+        1  => byte(0),
+        2  => byte(1),
+        3  => byte(2),
+        4  => byte(3),
+        :a => byte(0),
+        :b => byte(1),
+        :c => byte(2)
+      }.fetch(port_id, :error)
+    end
   end
 end
