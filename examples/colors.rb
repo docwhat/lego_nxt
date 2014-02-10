@@ -4,7 +4,6 @@
 #
 # The light sensor must be on port 1
 require 'lego_nxt'
-require 'ap'
 
 brick = LegoNXT::Brick.new
 color_sensor = LegoNXT::Sensors::ColorSensor.new
@@ -17,14 +16,20 @@ colors = [
   :blue
 ]
 
-(colors + colors).shuffle.each do |color|
-  puts "Setting color to #{color}"
-  color_sensor.color color
-  (1..5).each do |i|
-    sleep(i.to_f / 10)
-    ap color_sensor.value
+begin
+  (colors + colors).shuffle.each do |color|
+    puts "Setting color to #{color}"
+    color_sensor.color color
+    (1..5).each do |i|
+      sleep(i.to_f / 10)
+      value = color_sensor.value
+      fail 'You need the color sensor plugged into port 1' if value.nil?
+      puts "  #{value}"
+    end
   end
+rescue Interrupt
+  puts 'You quit it'
+ensure
+  # Turns the light off
+  color_sensor.color :passive
 end
-
-# Turns it off
-color_sensor.color :passive
