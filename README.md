@@ -3,6 +3,7 @@
 [![Build Status](https://secure.travis-ci.org/docwhat/lego_nxt.png?branch=master)](http://travis-ci.org/docwhat/lego_nxt)
 [![Coverage Status](https://coveralls.io/repos/docwhat/lego_nxt/badge.png?branch=master)](https://coveralls.io/r/docwhat/lego_nxt)
 [![Dependency Status](https://gemnasium.com/docwhat/lego_nxt.png)](https://gemnasium.com/docwhat/lego_nxt)
+[![Code Climate](https://codeclimate.com/github/docwhat/lego_nxt.png)](https://codeclimate.com/github/docwhat/lego_nxt)
 [![Inline docs](http://inch-pages.github.io/github/docwhat/lego_nxt.png)](http://inch-pages.github.io/github/docwhat/lego_nxt)
 
 An object oriented interface for talking to the LEGO NXT brick.
