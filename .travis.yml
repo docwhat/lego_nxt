@@ -1,10 +1,17 @@
 language: ruby
 rvm:
-  - 2.3
-  - 2.4
-  - 2.5
-script: "bundle exec rake spec"
+- 2.3
+- 2.4
+- 2.5
+notifications:
+  email: false
+  pushover:
+    api_key:
+      secure: mJLFak8J9BEOg1m6hUTMIIYJWE/vO7WO/tlbwXs1pYeiRDHguc1dBW7zYk4hXSuJz1ZKUs7+P+GuUt35XiRgp8uERIhfh9hWUtP+3l+pfKySHy0yN1P9u/ca4hz1wjaytXmMlzLks4tS++gdXy0DRQ2u67ggjZFvXhtHErkgtaQ=
+    users:
+      secure: GDADNfBx0zGOga4hn3/dPZIFE8RfMXGR7+IUSPzN3XxpX8ReOL6e7SCWJam1jcv95Y4o/pkvxacLGTMbyRHWGTiDrGFgjvIM4EV3co2M8gZEE3Y7p72uEj7ORUSwCOt0j5BbLMeZVcsb4sdo9SxZZrMmowg4qIUssiZohOvFsnU=
+script: bundle exec rake spec
 addons:
   apt:
     packages:
-    - "libusb-dev"
+    - libusb-dev
