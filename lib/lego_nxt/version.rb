@@ -2,5 +2,5 @@
 
 module LegoNXT
   # The version of the LegoNXT code
-  VERSION = '1.0.0'
+  VERSION = '2.0.0'.freeze
 end
