@@ -7,6 +7,8 @@ rvm:
 notifications:
   email: false
   pushover:
+    on_success: change
+    on_failure: always
     api_key:
       secure: mJLFak8J9BEOg1m6hUTMIIYJWE/vO7WO/tlbwXs1pYeiRDHguc1dBW7zYk4hXSuJz1ZKUs7+P+GuUt35XiRgp8uERIhfh9hWUtP+3l+pfKySHy0yN1P9u/ca4hz1wjaytXmMlzLks4tS++gdXy0DRQ2u67ggjZFvXhtHErkgtaQ=
     users:
