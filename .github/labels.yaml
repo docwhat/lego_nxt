@@ -1,0 +1,60 @@
+# more info https://github.com/crazy-max/ghaction-github-labeler
+- # bot
+  name: ":robot: bot"
+  color: "69cde9"
+  description: "Performed by automation"
+- # bug
+  name: ":bug: bug"
+  color: "b60205"
+  description: "Something isn't working"
+  # from_name: "bug"
+- # dependency
+  name: ":game_die: dependencies"
+  color: "0366d6"
+  description: "Pull requests that update a dependency file"
+  # from_name: "dependencies"
+- # documentation
+  name: ":memo: documentation"
+  color: "c5def5"
+  description: "Improvements or additions to documentation"
+  # from_name: "documentation"
+- # duplicate
+  name: ":busts_in_silhouette: duplicate"
+  color: "cccccc"
+  description: "This issue or pull request already exists"
+  # from_name: "duplicate"
+- # enhancement
+  name: ":sparkles: enhancement"
+  color: "0054ca"
+  description: "New feature or request"
+  # from_name: "enhancement"
+- # good first issue
+  name: ":hatching_chick: good first issue"
+  color: "7057ff"
+  description: "Good for newcomers"
+  # from_name: "good first issue"
+- # help wanted
+  name: ":pray: help wanted"
+  color: "4caf50"
+  description: "Extra attention is needed"
+  # from_name: "help wanted"
+- # invalid
+  name: ":no_entry_sign: invalid"
+  color: "e6e6e6"
+  description: "This doesn't seem right"
+  # from_name: "invalid"
+- # needs more info
+  name: ":thinking: needs more info"
+  color: "795548"
+  description: "The information present in the issue isn't enough to solve the problem"
+  # from_name: "needs info"
+- # question
+  name: ":question: question"
+  color: "3f51b5"
+  description: "Further information is requested"
+  # from_name: "question"
+- # wontfix
+  name: ":coffin: wontfix"
+  color: "ffffff"
+  description: "This will not be worked on"
+  # from_name: "wontfix"

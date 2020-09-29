@@ -1,0 +1,16 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - ":game_die: dependencies"
+      - ":robot: bot"
+  - package-ecosystem: "ruby"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - ":game_die: dependencies"
+      - ":robot: bot"
